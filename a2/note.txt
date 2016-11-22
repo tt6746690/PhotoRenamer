@@ -1,9 +1,0 @@
-deleted history interface
-added history class
-imagefile now has history
-imagefile now logs history
-ImageFileManager no longer checks for existing imagefile
-ImageFileManager checks for existing imagefile again
-imagefile no longer extends file
-ImageFileManager now get the list of images in a directory
-imagefile now revert to old name

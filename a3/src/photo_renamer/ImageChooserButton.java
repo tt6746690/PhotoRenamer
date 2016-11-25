@@ -12,11 +12,15 @@ import javax.swing.JFileChooser;
 
 import backend.ImageFile;
 
+/**
+ * Button that allows user to select an image in filesystem
+ * @author markwang
+ *
+ */
 public class ImageChooserButton extends JButton implements ActionListener {
 
 	/**
-	 * actionListener for mainWindow, use JFileChooser to choose images..
-	 * 
+	 * Creates a new button that allows user to select an image
 	 * @param mainWindow
 	 */
 	public ImageChooserButton(String label) {
@@ -24,6 +28,15 @@ public class ImageChooserButton extends JButton implements ActionListener {
 		this.addActionListener(this);
 	}
 
+	/**
+	 * Creates a new dialogue with view of the file system with filters 
+	 * for images applied. Gets user selected file from storage, if exists,
+	 * and attaches various component observers to tagManager and imageFile.
+	 * Then initiates view in the main window
+	 * 
+	 * @param e
+	 * 	Button cilck event
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("button clicked");
@@ -44,24 +57,22 @@ public class ImageChooserButton extends JButton implements ActionListener {
 
 				// attaching observers tagPanel
 				PhotoRenamer.tagManager.addObserver((Observer) PhotoRenamer.tagPanel);
-				PhotoRenamer.tagManager.addTag("dooooog");
-				PhotoRenamer.tagManager.addTag("cat");
-				PhotoRenamer.tagManager.addTag("elephant");
-				PhotoRenamer.tagManager.addTag("carrot");
 
-				// loads initial view of tags
-				// tagManager.updateState();
-
+				// fetch ImageFile
 				String filePath = image.getAbsolutePath();
 				PhotoRenamer.imageFile = PhotoRenamer.imageFileManager.fetchImageFile(filePath);
+				System.out.println(filePath + PhotoRenamer.imageFile);
 
-				PhotoRenamer.appLogger.log(Level.INFO, "selected ImageFile fetched...");
+				PhotoRenamer.appLogger.log(Level.INFO, "use fetched ImageFile >>>>>>>" + PhotoRenamer.imageFile);
 
 				// attach observers to imageFile
 				PhotoRenamer.imageFile.addObserver((Observer) PhotoRenamer.imagePanel);
-
+				PhotoRenamer.imageFile.addObserver((Observer) PhotoRenamer.fileInfoPanel);
+				PhotoRenamer.imageFile.addObserver((Observer) PhotoRenamer.dropDownPanel);
+				
 				// load Initial application state
 				PhotoRenamer.imageFile.updateState();
+				PhotoRenamer.tagManager.updateState();
 				PhotoRenamer.mainWindow.pack();
 
 			}

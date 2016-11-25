@@ -3,6 +3,7 @@ package photo_renamer;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
@@ -15,10 +16,13 @@ import backend.ImageFile;
 import backend.Tag;
 import backend.TagManager;
 
+/**
+ * Panel that displays current pool of tags 
+ * @author markwang
+ *
+ */
 public class TagPanel extends JPanel implements Observer {
 
-	public static final int TAG_PANEL_WIDTH = 200;
-	public static final int TAG_PANEL_HEIGHT = 500;
 
 	/**
 	 * Instantiates TagPanel with new layout
@@ -28,11 +32,12 @@ public class TagPanel extends JPanel implements Observer {
 	 */
 	public TagPanel(FlowLayout layout) {
 		super(layout);
-		this.setPreferredSize(new Dimension(TAG_PANEL_WIDTH, TAG_PANEL_HEIGHT));
+		this.setPreferredSize(new Dimension(ConfigReader.TAG_PANEL_WIDTH, ConfigReader.WINDOW_HEIGHT/2));
 	}
 
 	/**
-	 * updates upon TagManager state change
+	 * Displays tags, and instantiates components 
+	 * that adds/creates/deletes tags
 	 * 
 	 * @param o
 	 *            Observable TagManager that has changed
@@ -41,18 +46,32 @@ public class TagPanel extends JPanel implements Observer {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		PhotoRenamer.appLogger.log(Level.INFO, "TagPanel Updating...");
+		PhotoRenamer.appLogger.log(Level.INFO, "Tag updates to" + (TagManager) o);
 
 		this.removeAll();
+		
 		TagManager tm = (TagManager) o;
 
 		// creating buttons based on states of TagManager
 		for (Tag t : tm.tags.values()) {
-			AddTagButton btn = new AddTagButton(t.getName());
-			this.add(btn);
+			AddTagButton addBtn = new AddTagButton(t.getName());
+			DeleteTagButton deleteBtn = new DeleteTagButton(t.getName());
+			
+			// bundle add and delete button together
+			FlowLayout layout = new FlowLayout();
+			layout.setHgap(0);
+			JPanel buttonBundle = new JPanel(layout);
+			buttonBundle.add(addBtn);
+			buttonBundle.add(deleteBtn);
+			
+			// adds bundled buttons to panel
+			this.add(buttonBundle);
+			
 		}
-
-		//
-
+		this.add(new CreateTagTextField());
+		
+		
+		this.revalidate();
+		this.repaint();
 	}
 }

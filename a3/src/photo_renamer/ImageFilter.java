@@ -8,6 +8,11 @@ import java.io.File;
 import javax.swing.*;
 import javax.swing.filechooser.*;
  
+/**
+ * Filter that filters for image files
+ * @author markwang
+ *
+ */
 public class ImageFilter extends FileFilter {
 	
 	public static final ArrayList<String> ALLOWED_IMAGE_EXTENSIONS 

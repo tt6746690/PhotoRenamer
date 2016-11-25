@@ -28,7 +28,7 @@ public class History implements Serializable{
 	 */
 	public History(File f, ArrayList<Tag> tags){
 		this.timestamp = this.getCurrentTime();
-    this.tags = tags;
+		this.tags = (ArrayList<Tag>) tags.clone();
 		this.file = f;
 	}
 
@@ -77,5 +77,10 @@ public class History implements Serializable{
 		DateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 		String formattedData = format.format(date);
 		return formattedData;
+	}
+
+	@Override
+	public String toString() {
+		return this.timestamp + " <====> " + this.file.getName();
 	}
 }

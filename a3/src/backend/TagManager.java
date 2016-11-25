@@ -123,7 +123,7 @@ public class TagManager extends Observable{
 	 * @param tagName
 	 *            name of the Tag to be added
 	 */
-	public void addTag(String tagName) {
+	public void createTag(String tagName) {
 		Tag t = new Tag(tagName);
 		this.tags.put(t.getName(), t);
 		this.updateState();
@@ -146,53 +146,6 @@ public class TagManager extends Observable{
 		notifyObservers();
 	}
 
-//	/**
-//	 * Returns iterator over all tags
-//	 */
-//	@Override
-//	public Iterator<Tag> iterator() {
-//		return new TagIterator();
-//	}
-//	
-//	/**
-//	 * nested Tag Iterator class
-//	 * @author markwang
-//	 *
-//	 */
-//	private class TagIterator implements Iterator<Tag> {
-//
-//		/** The index of the next Tag to return. */
-//		private int current = 0;
-//
-//		/**
-//		 * Returns whether there is another Tag to return.
-//		 * 
-//		 * @return whether there is another Tag to return.
-//		 */
-//		@Override
-//		public boolean hasNext() {
-//			return current < tags.size();
-//		}
-//
-//		/**
-//		 * Returns the next Tag.
-//		 * 
-//		 * @return the next Tag.
-//		 */
-//		@Override
-//		public Tag next() {
-//			Tag t;
-//
-//			try {
-//				t = tags.get(current);
-//			} catch (IndexOutOfBoundsException e) {
-//				throw new NoSuchElementException();
-//			}
-//			current += 1;
-//			return t;
-//		}
-//
-//	}
 
 	@Override
 	public String toString() {

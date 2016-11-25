@@ -17,15 +17,12 @@ import javax.swing.JPanel;
 import backend.ImageFile;
 
 /**
- * Panel that displays name and image file
+ * Panel that displays image name and image 
  * 
  * @author markwang
  *
  */
 public class ImagePanel extends JPanel implements Observer {
-
-	private static final int IMAGE_WIDTH = 500;
-	private static final int IMAGE_HEIGHT = 500;
 
 	private static final long serialVersionUID = 1L;
 
@@ -40,6 +37,7 @@ public class ImagePanel extends JPanel implements Observer {
 	 */
 	public ImagePanel(BorderLayout layout) {
 		super(layout);
+		
 		this.imageLabel = new JLabel();
 		this.imageIcon = new ImageIcon();
 
@@ -48,7 +46,7 @@ public class ImagePanel extends JPanel implements Observer {
 	}
 
 	/**
-	 * updates upon ImageFile state change
+	 * updates name and image if a different imageFile is selected
 	 * 
 	 * @param o
 	 *            Observable ImageFile that has changed
@@ -57,9 +55,10 @@ public class ImagePanel extends JPanel implements Observer {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		this.removeAll();
 		PhotoRenamer.appLogger.log(Level.INFO, "ImagePanel Updating...");
 
+		this.removeAll();
+	
 		// updates ImageIcon
 		ImageFile imageFile = ((ImageFile) o);
 		BufferedImage img = this.readImage(imageFile.file);
@@ -76,6 +75,8 @@ public class ImagePanel extends JPanel implements Observer {
 
 		// adds imageLabel to ImagePanel
 		this.add(this.imageLabel, BorderLayout.NORTH);
+		this.revalidate();
+		this.repaint();
 	}
 
 	/**
@@ -89,7 +90,7 @@ public class ImagePanel extends JPanel implements Observer {
 		Image image = icon.getImage();
 		// -1 supplied to keep aspect ratio while enforcing resizing based on
 		// height
-		Image newImg = image.getScaledInstance(-1, IMAGE_HEIGHT, java.awt.Image.SCALE_SMOOTH);
+		Image newImg = image.getScaledInstance(-1, ConfigReader.IMAGE_HEIGHT, java.awt.Image.SCALE_SMOOTH);
 		return new ImageIcon(newImg);
 	}
 

@@ -9,13 +9,27 @@ import javax.swing.JButton;
 
 import backend.Tag;
 
+/**
+ * Button that adds Tag to ImageFile
+ * @author markwang
+ *
+ */
 public class AddTagButton extends JButton implements ActionListener {
 
-	public AddTagButton(String label) {
-		super(label);
+	/**
+	 * Creates a new AddTagButton
+	 * @param tagName
+	 */
+	public AddTagButton(String tagName) {
+		super(tagName);
 		this.addActionListener(this);
 	}
 
+	/**
+	 * Adds clicked tag to ImageFile
+	 * @param e 
+	 * 	button click event
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		PhotoRenamer.appLogger.log(Level.INFO, "add tag button clicked; adding " + this.getText());

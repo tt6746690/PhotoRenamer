@@ -1,0 +1,16 @@
+Nov 24, 2016 4:21:14 PM photo_renamer.ImageChooserButton actionPerformed
+INFO: use fetched ImageFile >>>>>>>ImageFile Class: eeee.jpg; origName: eeee and tags: []
+Nov 24, 2016 4:21:51 PM photo_renamer.PhotoRenamer windowClosing
+INFO: window closed
+Nov 24, 2016 4:24:18 PM photo_renamer.ImageChooserButton actionPerformed
+INFO: use fetched ImageFile >>>>>>>ImageFile Class: eeee.jpg; origName: eeee and tags: []
+Nov 24, 2016 4:24:53 PM photo_renamer.PhotoRenamer windowClosing
+INFO: window closed
+Nov 24, 2016 4:25:21 PM photo_renamer.ImageChooserButton actionPerformed
+INFO: use fetched ImageFile >>>>>>>ImageFile Class: eeee.jpg; origName: eeee and tags: []
+Nov 24, 2016 4:25:21 PM photo_renamer.HistoryPanel update
+INFO: HistoryDropDown Updating...ImageFile Class: eeee.jpg; origName: eeee and tags: []
+Nov 24, 2016 4:25:21 PM photo_renamer.FileInfoPanel update
+INFO: Change ImageFile Name to eeee.jpg
+Nov 24, 2016 4:25:21 PM photo_renamer.ImagePanel update
+INFO: ImagePanel Updating...

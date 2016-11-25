@@ -116,13 +116,42 @@ public class ImageFileManager {
 	 * @return ImageFile
 	 */
 	public ImageFile fetchImageFile(String path){
-		ImageFile image = new ImageFile(path);
-		if(this.imageFiles.containsKey(image.originalPath)){
-			image = imageFiles.get(image.originalPath);
+		System.out.println("fetchImageFile here!!!!!!!!!");
+//		ImageFile image = new ImageFile(path);
+		
+		String origPath = ImageFileManager.getFilePathWithoutTag(path);
+	
+		if(this.imageFiles.containsKey(origPath)){
+			System.out.println("contains key already.. fetch existing ones..");
+			return imageFiles.get(origPath);
 		} else {
-			imageFiles.put(image.originalPath, image);
+			ImageFile imageFile = new ImageFile(origPath);
+			imageFiles.put(origPath, imageFile);
+			return imageFile;
 		}
-		return image;
+	}
+	
+	
+	public static String getFilePathWithoutTag(String path){
+		File f = new File(path);
+		String fullPath = f.getAbsolutePath();
+		
+		String fileName = f.getName();
+		String dir = fullPath.substring(0, fullPath.lastIndexOf(File.separator));
+		String ext = fullPath.substring(fullPath.lastIndexOf(".") + 1, fullPath.length());
+		
+		// substring fileName
+		int dotIndex = fileName.lastIndexOf('.');
+		int atIndex = fileName.indexOf('@');
+		int position = dotIndex;
+		if(atIndex != -1){
+			position = Math.min(dotIndex, atIndex);
+		}
+		fileName = fileName.substring(0, position);
+		
+
+		//concat back... 
+		return dir + File.separator + fileName + "." + ext;
 	}
 
 	/**
@@ -171,6 +200,9 @@ public class ImageFileManager {
        
        System.out.println("Just reading from imageFile.ser gives: ");
        System.out.println(im);
+       
+       
+//       System.out.println(ImageFileManager.getFilePathWithoutTag(storagePath));
   
 //   	  // now displays a list of image files
 //       for(File f: im.listImageFiles("src/")){
